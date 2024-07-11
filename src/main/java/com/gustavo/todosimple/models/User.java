@@ -1,5 +1,5 @@
 
-package com.lucasangelo.todosimple.models;
+package com.gustavo.todosimple.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = User.TABLE_NAME)
 public class User {
 
+    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
@@ -27,9 +30,12 @@ public class User {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+
     public interface CreateUser {}
     public interface UpdateUser {}
     
+
     public static final String TABLE_NAME = "user";
     // interg ou long, o Integer suporta null
     @Id
@@ -40,13 +46,13 @@ public class User {
     @Column(name = "username", length = 100, nullable = false, unique = true)
     @NotNull(groups = CreateUser.class)
     @NotEmpty(groups = CreateUser.class)
-    @Size(groups = CreateUser.class, min = 2, max = 3)
+    @Size(groups = CreateUser.class, min = 2, max = 100)
     private String username;
     
     @Column(name = "password", length =60, nullable = false)
     @NotNull(groups = {CreateUser.class, UpdateUser.class})
     @NotEmpty(groups = {CreateUser.class, UpdateUser.class})
-    @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
+    @Size(groups = {CreateUser.class, UpdateUser.class}, min = 4, max = 60)
     private String password;
     
     @OneToMany(mappedBy="user")
@@ -55,7 +61,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password) {
+    public User(Long id,String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

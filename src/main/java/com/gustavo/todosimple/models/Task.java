@@ -1,4 +1,4 @@
-package com.lucasangelo.todosimple.models;
+package com.gustavo.todosimple.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -71,6 +71,7 @@ public class Task {
     }
 
     @Override
+    @SuppressWarnings(value = { "" })
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
